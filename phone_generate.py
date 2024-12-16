@@ -16,28 +16,42 @@ def random_phone_num(phone_prefix: str) -> str:
     return phone_prefix
 
 
-phone_list = []
-counter = 0
+def phone_list_generator(phone_count: int, phone_prefix: str) -> list[str]:
+    phone_list = []
+    counter = 0
 
-while len(phone_list) < 100000:
-    counter += 1
-    if counter % 1000 == 0:
-        print(counter)
-    random_phone = random_phone_num(phone_prefix="+7928")
-    random_phone = random_phone + "\n"
-    if random_phone in phone_list:
-        continue
-    phone_list.append(random_phone)
+    while len(phone_list) < phone_count:
+        counter += 1
+        if counter % 1000 == 0:
+            print(counter)
+        random_phone = random_phone_num(phone_prefix)
+        random_phone = random_phone + "\n"
+        if random_phone in phone_list:
+            continue
+        phone_list.append(random_phone)
 
+    print(counter)
 
-print(counter)
-
-listfilewriter(file_name='megaphone.txt', input_list=phone_list)
-
-
+    return phone_list
 
 
+main_data = {
+    'megafone.txt': '+7928',
+    'mts.txt': '+7918',
+    't2.txt': '+7908',
+}
 
+for file_name, prefix in main_data.items():
+    x = phone_list_generator(10000, prefix)
+    listfilewriter(file_name=file_name, input_list=x)
 
+main_data2 = [
+    ('megafone.txt', '+7928'),
+    ('mts.txt', '+7918'),
+    ('t2.txt', '+7908'),
+]
 
-
+for data_tuple in main_data2:
+    file_name, prefix = data_tuple
+    x = phone_list_generator(10000, prefix)
+    listfilewriter(file_name=file_name, input_list=x)
