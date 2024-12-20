@@ -1,6 +1,6 @@
 import random
 
-from file_funcions import listfilewriter
+from json_functions import write_json
 
 
 def random_phone_num(phone_prefix: str) -> str:
@@ -25,7 +25,6 @@ def phone_list_generator(phone_count: int, phone_prefix: str) -> list[str]:
         if counter % 1000 == 0:
             print(counter)
         random_phone = random_phone_num(phone_prefix)
-        random_phone = random_phone + "\n"
         if random_phone in phone_list:
             continue
         phone_list.append(random_phone)
@@ -36,22 +35,11 @@ def phone_list_generator(phone_count: int, phone_prefix: str) -> list[str]:
 
 
 main_data = {
-    'megafone.txt': '+7928',
-    'mts.txt': '+7918',
-    't2.txt': '+7908',
+    'megaphone.json': '+7928',
+    'mts.json': '+7918',
+    't2.json': '+7908',
 }
 
 for file_name, prefix in main_data.items():
     x = phone_list_generator(10000, prefix)
-    listfilewriter(file_name=file_name, input_list=x)
-
-main_data2 = [
-    ('megafone.txt', '+7928'),
-    ('mts.txt', '+7918'),
-    ('t2.txt', '+7908'),
-]
-
-for data_tuple in main_data2:
-    file_name, prefix = data_tuple
-    x = phone_list_generator(10000, prefix)
-    listfilewriter(file_name=file_name, input_list=x)
+    write_json(x, file_name)

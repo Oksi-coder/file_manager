@@ -4,42 +4,36 @@
 3. Из каждого списка выбрать по 3333 случайных номера.
 4. Смешать полученные номера хаотично в одном списке.
 5. Записать полученный список в новый файл random.txt
+
+
+
+1. Проверить на уникальность новый файл.
+2. Сделать, чтобы телефоны были уникальными.
 """
 
 import random
 
-from file_funcions import filereader, listfilewriter
+from json_functions import read_json, write_json
 
 
-st_megafone = filereader('megafone.txt')
-sp_megafone = st_megafone.split('\n')
+def numbers_3333(operator: str):
+    list_telephones = read_json(operator)
 
-sp_1 = []
-for phones in range(3333):
-    megafone = random.choice(sp_megafone)
-    sp_1.append(megafone + '\n')
+    new_list = []
+    while len(new_list) < 3333:
+        phone_number = random.choice(list_telephones)
+        if phone_number in new_list:
+            continue
+        new_list.append(phone_number)
 
-
-st_mts = filereader('mts.txt')
-sp_mts = st_mts.split('\n')
-
-sp_2 = []
-for phones in range(3333):
-    mts = random.choice(sp_mts)
-    sp_2.append(mts + '\n')
+    return new_list
 
 
-st_t2 = filereader('t2.txt')
-sp_t2 = st_t2.split('\n')
+list_1 = numbers_3333('megaphone.json')
+list_2 = numbers_3333('mts.json')
+list_3 = numbers_3333('t2.json')
 
-sp_3 = []
-for phones in range(3333):
-    t2 = random.choice(sp_t2)
-    sp_3.append(t2 + '\n')
-
-random_list = sp_1 + sp_2 + sp_3
+random_list = list_1 + list_2 + list_3
 random.shuffle(random_list)
 
-print(len(random_list))
-
-listfilewriter('random.txt', random_list)
+write_json(random_list, 'random.json')

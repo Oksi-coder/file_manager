@@ -2,7 +2,7 @@
 
 def filewritter(file_name: str, input_string: str) -> None:
     file_path = f'data/{file_name}'
-    with open(file_path, "a") as _file:
+    with open(file_path, "w") as _file:
         _file.write(input_string)
 
 

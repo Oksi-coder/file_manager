@@ -1,10 +1,7 @@
-from file_funcions import filereader
+from json_functions import read_json
 
 
-x = filereader(file_name='megaphone.txt')
+x = read_json(file_name='random.json')
 
-y = x.split('\n')
-z = set(y)
-l = len(y) - len(z)
-print(l)
-
+z = set(x)
+print(len(x) - len(z))
